@@ -223,9 +223,10 @@
        function enviarPedidoWhatsApp() {
             var nomeCliente = document.getElementById("nomeCliente").value;
             var total = document.getElementById("total").value;
+            var quantidadePorTipoHtml = document.getElementById("quantidadePorTipo").value;
             
             // Construir mensagem para o WhatsApp
-            var mensagem = "Olá " + nomeCliente + ", o total do seu pedido é de " + total;
+            var mensagem = "Olá " + nomeCliente + ", o total do seu pedido é de " + total + quantidadePorTipoHtml;
 
             // Número de telefone para o qual você deseja enviar a mensagem (substitua pelo número real)
             var numeroWhatsApp = "+5522997208740";
