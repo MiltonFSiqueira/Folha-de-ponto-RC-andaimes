@@ -220,7 +220,7 @@
 
       
 
-      // Função para enviar o pedido por WhatsApp
+      /* Função para enviar o pedido por WhatsApp
       function enviarPedidoWhatsApp() {
         var nomeCliente = document.getElementById("nomeCliente").value;
         var dataEntrega = document.getElementById("dataEntrega").value;
@@ -231,7 +231,7 @@
         var taxaEntrega = document.getElementById("taxaEntrega").value;
         var total = document.getElementById("total").value;
         var quantidadePorTipoHtml = document.getElementById("quantidadePorTipo").value;
-
+        
         // Construir mensagem para o WhatsApp
         var mensagem = "Pedido de Salgadinhos:\n\n" +
         "Nome do Cliente: " + nomeCliente + "\n" +
@@ -264,6 +264,59 @@
           alert("Para enviar o pedido por WhatsApp, use um dispositivo móvel.");
         }
       }
-    </script>
-  </body>
+      */
+
+      // Função para enviar o pedido por WhatsApp
+      function enviarPedidoWhatsApp() {
+        var nomeCliente = document.getElementById("nomeCliente").value;
+        var dataEntrega = document.getElementById("dataEntrega").value;
+        var horarioEntrega = document.getElementById("horarioEntrega").value;
+        var telefone = document.getElementById("telefone").value;
+        var quantidade = document.getElementById("quantidade").value;
+        var preparo = document.querySelector('input[name="preparo"]:checked').value;
+        var taxaEntrega = document.getElementById("taxaEntrega").value;
+        var quantidadePorTipoHtml = document.getElementById("quantidadePorTipo").innerHTML;
+        var total = document.getElementById("total").value;
+
+        // Construir mensagem para o WhatsApp
+        var mensagem = "Pedido de Salgadinhos:\n\n" +
+                       "Nome do Cliente: " + nomeCliente + "\n" +
+                       "Data de Entrega: " + dataEntrega + "\n" +
+                       "Horário de Entrega: " + horarioEntrega + "\n" +
+                       "Telefone de Contato: " + telefone + "\n" +
+                       "Quantidade: " + quantidade + "\n" +
+                       "Preparo: " + preparo + "\n" +
+                       "Taxa de Entrega: " + taxaEntrega + "\n" +
+                       "Quantidade por Tipo: \n" + quantidadePorTipoHtml + "\n" +
+                       "Total do Pedido: " + total;
+
+        // Número de telefone para o qual você deseja enviar a mensagem (substitua pelo número real)
+        var numeroWhatsApp = "+5522998710211";
+
+        // Enviar a mensagem via API do WhatsApp Business (exemplo)
+        fetch('https://api.example.com/send-whatsapp-message', {
+            method: 'POST',
+            body: JSON.stringify({
+                phone: numeroWhatsApp,
+                message: mensagem
+            }),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                alert('Pedido enviado com sucesso por WhatsApp.');
+            } else {
+                alert('Falha ao enviar o pedido por WhatsApp.');
+            }
+        })
+        .catch(error => {
+            alert('Erro ao enviar o pedido por WhatsApp: ' + error);
+        });
+    }
+</script>
+</body>
 </html>
+
