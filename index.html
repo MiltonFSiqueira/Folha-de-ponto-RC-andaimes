@@ -230,10 +230,19 @@
         var preparo = document.getElementById("preparo").value;
         var taxaEntrega = document.getElementById("taxaEntrega").value;
         var total = document.getElementById("total").value;
-        var quantidadePorTipo = document.getElementById("quantidadePorTipo").value;
+        var quantidadePorTipoHtml = document.getElementById("quantidadePorTipo").value;
 
         // Construir mensagem para o WhatsApp
-        var mensagem = "Olá " + nomeCliente + ", pedido confirmado " + dataEntrega + horarioEntrega + telefone + quantidade + preparo + taxaEntrega + total + quantidadePorTipo;
+        var mensagem = "Pedido de Salgadinhos:\n\n" +
+        "Nome do Cliente: " + nomeCliente + "\n" +
+        "Data de Entrega: " + dataEntrega + "\n" +
+        "Horário de Entrega: " + horarioEntrega + "\n" +
+        "Telefone de Contato: " + telefone + "\n" +
+        "Quantidade: " + quantidade + "\n" +
+        "Preparo: " + preparo + "\n" +
+        "Taxa de Entrega: " + taxaEntrega + "\n" +
+        "Quantidade por Tipo: \n" + quantidadePorTipoHtml + "\n" +
+        "Total do Pedido: " + total;
 
         // Número de telefone para o qual você deseja enviar a mensagem (substitua pelo número real)
         var numeroWhatsApp = "+5522998710211";
