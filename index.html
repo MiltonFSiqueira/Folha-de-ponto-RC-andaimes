@@ -220,11 +220,17 @@
 
       function enviarPedidoWhatsApp() {
         var nomeCliente = document.getElementById("nomeCliente").value;
+        var dataEntrega = document.getElementById("dataEntrega").value;
+        var horarioEntrega = document.getElementById("horarioEntrega").value;
+        var telefone = document.getElementById("telefone").value;
+        var quantidade = document.getElementById("quantidade").value;
+        var preparo = document.getElementById("preparo").value;
+        var taxaEntrega = document.getElementById("taxaEntrega").value;
         var total = document.getElementById("total").value;
+        var quantidadePorTipo = document.getElementById("quantidadePorTipo").value;
 
         // Construir mensagem para o WhatsApp
-        var mensagem =
-          "Olá " + nomeCliente + ", o total do seu pedido é de " + total;
+        var mensagem = "Olá " + nomeCliente + ", pedido confirmado " + dataEntrega + horarioEntrega + telefone + quantidade + preparo + taxaEntrega + total + quantidadePorTipo;
 
         // Simular o envio para o WhatsApp (você precisará implementar a lógica real de envio)
         alert("Pedido enviado para o WhatsApp:\n" + mensagem);
