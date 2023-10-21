@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema de pedidos</title>
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+
+      <header>
+            <div class="texto-principal">
+            <h1>Pedido de salgadinho</h1> 
+            </div>
+      </header>
+
+      <section class="info">
+
+    <form id="pedidoForm">
+      <label for="nomeCliente">Nome do Cliente:</label>
+      <input type="text" id="nomeCliente" required /><br /><br />
+
+      <label for="dadosEntrega">Data de Entrega:</label>
+      <input type="date" id="dataEntrega" required /><br /><br />
+
+      <label for="horarioEntrega">Horário de Entrega:</label>
+      <input type="time" id="horarioEntrega" required /><br /><br />
+
+      <label for="telefone">Telefone de Contato (com DDD):</label>
+      <input type="text" id="telefone" required /><br /><br />
+      </section>
+
+      <section class="cardapio">
+<div class="titulo-cardapio">
+      <label for="cardapio">Cardápio</label><br />
+</div>
+
+<div class="cardapio-itens">
+      <input type="checkbox" id="coxinha" value="Coxinha" /> Coxinha<br />
+      <input type="checkbox" id="quibe" value="Quibe" /> Quibe<br />
+      <input type="checkbox" id="bolinha" value="Bolinha de queijo" /> Bolinha
+      de queijo<br />
+      <input type="checkbox" id="risoleCarne" value="Risole de carne" /> Risole
+      de carne<br />
+      <input type="checkbox" id="risoleCamarao" value="Risole de camarao" />
+      Risole de camarão<br />
+      <!-- Adicione outros tipos de salgadinhos aqui -->
+      <br />
+</div>
+      </section>
+
+      <section class="quant">
+
+      <label for="quantidade">Quantidade </label><br />
+      <select id="quantidade">
+        <option value="25">25</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+        <option value="150">150</option>
+        <option value="200">200</option>
+        <option value="250">250</option>
+        <option value="300">300</option>
+        <option value="350">350</option>
+        <option value="400">400</option>
+        <option value="450">450</option>
+        <option value="500">500</option>
+        <option value="550">550</option>
+        <option value="600">600</option>
+        <option value="650">650</option>
+        <option value="700">700</option>
+        <option value="750">750</option>
+        <option value="800">800</option>
+        <option value="850">850</option>
+        <option value="900">900</option>
+        <option value="950">950</option>
+        <option value="1000">1000</option>
+        <option value="1050">1050</option>
+        <option value="1100">1100</option>
+        <option value="1150">1150</option>
+        <option value="1200">1200</option>
+        <option value="1250">1250</option>
+        <option value="1300">1300</option>
+        <option value="1350">1350</option>
+        <option value="1400">1400</option>
+        <option value="1450">1450</option>
+        <option value="1500">1500</option>
+        <option value="1550">1550</option>
+        <option value="1600">1600</option>
+        <option value="1650">1650</option>
+        <option value="1700">1700</option>
+        <option value="1750">1750</option>
+        <option value="1800">1800</option>
+        <option value="1850">1850</option>
+        <option value="1900">1900</option>
+        <option value="1950">1950</option>
+        <option value="2000">2000</option>
+        <option value="2050">2050</option>
+        <option value="2100">2100</option>
+        <option value="2150">2150</option>
+        <option value="2200">2200</option>
+        <option value="2250">2250</option>
+        <option value="2300">2300</option>
+        <option value="2350">2350</option>
+        <option value="2400">2400</option>
+        <option value="2450">2450</option>
+        <option value="2500">2500</option>
+        <option value="2550">2550</option>
+        <option value="3000">3000</option>
+      </select>
+      <br/>
+      <br/>
+      </section>
+
+      <section class="Preparo">
+
+      <label for="preparo">Preparo:</label><br />
+      <input type="radio" id="congelado" name="preparo" value="Congelado" />
+      Congelado<br />
+      <input type="radio" id="frito" name="preparo" value="Frito" />
+      Frito<br /><br />
+      </section>
+
+      <div class="taxa">
+
+      <label for="taxaEntrega">Taxa de Entrega:</label>
+      <input type="number" id="taxaEntrega" step="0.01" /><br /><br />
+      </div>
+
+      <div class="Calcular-Pedido">
+
+      <button type="button" onclick="calcularPedido()">Calcular Pedido</button
+      ><br /><br />
+      </div>
+
+      <div class="Total-do-Pedido">
+
+      <label for="total">Total do Pedido:</label>
+      <input type="text" id="total" readonly /><br /><br />
+      </div>
+
+      <div class="Quantidade-por-Tipo">
+
+      <div class="quantidadePorTipo">
+            <label for="quantidadePorTipo">Quantidade por Tipo =</label>
+      </div>
+      <div id="quantidadePorTipo"></div>
+      <br /><br />
+      </div>
+
+      <div class="WhatsApp">
+
+      <button type="button" onclick="enviarPedidoWhatsApp()">
+        Enviar para WhatsApp
+      </button>
+    </form>
+      </div>
+
+    <script>
+      function calcularPedido() {
+        var quantidade = parseInt(document.getElementById("quantidade").value);
+        var preparo = document.querySelector(
+          'input[name="preparo"]:checked'
+        ).value;
+        var taxaEntrega = parseFloat(
+          document.getElementById("taxaEntrega").value
+        );
+
+        // Obtém os tipos de salgadinhos selecionados
+        var tiposSalgadinhos = [];
+        if (document.getElementById("coxinha").checked)
+          tiposSalgadinhos.push("Coxinha");
+        if (document.getElementById("quibe").checked)
+          tiposSalgadinhos.push("Quibe");
+        if (document.getElementById("bolinha").checked)
+          tiposSalgadinhos.push("Bolinha de queijo");
+        if (document.getElementById("risoleCarne").checked)
+          tiposSalgadinhos.push("Risole de carne");
+        if (document.getElementById("risoleCamarao").checked)
+          tiposSalgadinhos.push("Risole de camarao");
+        // Adicione outros tipos de salgadinhos aqui
+
+        // Calcula a quantidade de cada tipo de salgadinho
+        var quantidadePorTipo = {};
+        var quantidadePorTipoCada = Math.floor(
+          quantidade / tiposSalgadinhos.length
+        );
+        for (var i = 0; i < tiposSalgadinhos.length; i++) {
+          quantidadePorTipo[tiposSalgadinhos[i]] = quantidadePorTipoCada;
+        }
+
+        // Lida com a sobra se a quantidade não for divisível igualmente entre os tipos
+        var sobra = quantidade % tiposSalgadinhos.length;
+        for (var i = 0; i < sobra; i++) {
+          quantidadePorTipo[tiposSalgadinhos[i]] += 1;
+        }
+
+        // Cálculos com base nas escolhas do cliente
+        var precoUnitario = preparo === "Congelado" ? 0.4 : 0.48;
+        var total = 0;
+
+        for (var tipo in quantidadePorTipo) {
+          total += quantidadePorTipo[tipo] * precoUnitario;
+        }
+
+        // Adiciona taxa de entrega ao total
+        total += taxaEntrega;
+
+        // Exibe o total no campo de input
+        document.getElementById("total").value = total.toFixed(2) + " reais";
+
+        // Exibe a quantidade por tipo
+        var quantidadePorTipoHtml = "";
+        for (var tipo in quantidadePorTipo) {
+          quantidadePorTipoHtml +=
+            tipo + " = " + quantidadePorTipo[tipo] + "<br>";
+        }
+        document.getElementById("quantidadePorTipo").innerHTML =
+          quantidadePorTipoHtml;
+      }
+
+      function enviarPedidoWhatsApp() {
+        var nomeCliente = document.getElementById("nomeCliente").value;
+        var total = document.getElementById("total").value;
+
+        // Construir mensagem para o WhatsApp
+        var mensagem =
+          "Olá " + nomeCliente + ", o total do seu pedido é de " + total;
+
+        // Simular o envio para o WhatsApp (você precisará implementar a lógica real de envio)
+        alert("Pedido enviado para o WhatsApp:\n" + mensagem);
+      }
+
+      // Função para enviar o pedido por WhatsApp
+      function enviarPedidoWhatsApp() {
+        var nomeCliente = document.getElementById("nomeCliente").value;
+        var total = document.getElementById("total").value;
+
+        // Construir mensagem para o WhatsApp
+        var mensagem =
+          "Olá " + nomeCliente + ", o total do seu pedido é de " + total;
+
+        // Número de telefone para o qual você deseja enviar a mensagem (substitua pelo número real)
+        var numeroWhatsApp = "+5522997208740";
+
+        // Verifica se o navegador suporta o link para o WhatsApp
+        if (
+          /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
+            navigator.userAgent
+          )
+        ) {
+          window.open(
+            "https://api.whatsapp.com/send?phone=" +
+              numeroWhatsApp +
+              "&text=" +
+              encodeURIComponent(mensagem),
+            "_blank"
+          );
+        } else {
+          alert("Para enviar o pedido por WhatsApp, use um dispositivo móvel.");
+        }
+      }
+    </script>
+  </body>
+</html>
