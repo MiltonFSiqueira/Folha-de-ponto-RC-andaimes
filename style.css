@@ -1,135 +1,90 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,900;1,500;1,700&display=swap');
-      *{
-            margin: 0;
-            box-sizing: border-box;
-            font-family: 'Roboto', sans-serif;     
-      }
-
-      header{
-            background-color: lightsalmon;
-            border-bottom: 1px solid black;
-      }
-
-      .texto-principal{
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 10px 0 10px 0;
-      }
-
-      .info{
-            background-color: rgb(233, 228, 163);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-bottom: 1px solid black;
-            padding-top: 20px;
-            font-size: 20px;
-      }
-
-      .titulo-cardapio{
-            background-color:  lightsalmon;
-            font-size: 25px;
-            padding: 10px 0 10px 0;
-            border-bottom: 1px solid black;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-      }
-
-      .cardapio-itens{
-            background-color: rgb(233, 228, 163);
-            font-size: 20px;
-            padding: 20px ;
-            border-bottom: 1px solid black; 
-      }
-
-      input{
-            margin: 20px;
-      }
-
-      .quant{
-            background-color:  lightsalmon; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
-      }
-
-      label{
-            margin: 10px;
-      }
-
-      .Preparo{
-            background-color:  lightsalmon; 
-            display: flex;
-            display: block;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
-            border-bottom: 1px solid black; 
-      }
-
-      .taxa{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
-            border-bottom: 1px solid black; 
-            background-color: rgb(233, 228, 163);
-      }
-
-      .Calcular-Pedido{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
-            border-bottom: 1px solid black; 
-            background-color:  lightsalmon;
-      }
-
-      button{
-            width: 100px;
-            border-radius: 10%;
-            cursor: pointer;
-            background-color: black;
-            color: azure;
-            font-size: 15px;
-      }
-
-      .Total-do-Pedido{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
-            border-bottom: 1px solid black; 
-            background-color: rgb(233, 228, 163);
-      }
-
-      .Quantidade-por-Tipo{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
-            border-bottom: 1px solid black; 
-            background-color:  lightsalmon;
-      }
-
-      .quantidadePorTipo{
-            display: block;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
-      }
-
-      .WhatsApp{
-            background-color: rgb(233, 228, 163);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
-            height: 100px;
-      }
-
-
-      
+body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+    
+    header {
+      background-color: #007bff;
+      color: #fff;
+      padding: 1em;
+      text-align: center;
+    }
+    
+    nav ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: space-between;
+    }
+    
+    nav li {
+      margin-right: 20px;
+    }
+    
+    nav a {
+      color: #fff;
+      text-decoration: none;
+    }
+    
+    main {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 2em;
+    }
+    
+    section {
+      background-color: #fff;
+      padding: 1em;
+      margin-bottom: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    
+    h2 {
+      margin-top: 0;
+    }
+    
+    form {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+    label {
+      margin-bottom: 10px;
+    }
+    
+    input, select {
+      padding: 10px;
+      margin-bottom: 20px;
+      border: 1px solid #ccc;
+    }
+    
+    button {
+      background-color: #007bff;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    button:hover {
+      background-color: #0069d9;
+    }
+    
+    #relatorios-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    
+    #relatorios-table th, #relatorios-table td {
+      border: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+    }
+    
+    #relatorios-table th {
+      background-color: #f0f0f0;
+    }
