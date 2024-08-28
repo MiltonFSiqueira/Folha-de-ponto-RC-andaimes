@@ -1,67 +1,164 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RC Andaimes - Controle de Ponto</title>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Folha de Ponto - RC Andaimes</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e6f2ff;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #0066cc;
+            text-align: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #0066cc;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #0066cc;
+            color: white;
+        }
+        input[type="text"], input[type="date"], input[type="time"] {
+            width: 100%;
+            padding: 5px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+        button {
+            background-color: #0066cc;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-top: 20px;
+            margin-right: 10px;
+        }
+        button:hover {
+            background-color: #004c99;
+        }
+    </style>
 </head>
 <body>
-  <header>
-    <nav>
-      <ul>
-        <li><a href="#" id="cadastro-btn">Cadastro</a></li>
-        <li><a href="#" id="registro-btn">Registro de Ponto</a></li>
-        <li><a href="#" id="relatorios-btn">Relatórios</a></li>
-      </ul>
-    </nav>
-  </header>
-  <main>
-    <section id="cadastro">
-      <h2>Cadastro de Colaborador</h2>
-      <form>
-        <label for="nome">Nome:</label>
-        <input type="text" id="nome" name="nome"><br><br>
-        <label for="email">E-mail:</label>
-        <input type="email" id="email" name="email"><br><br>
-        <label for="senha">Senha:</label>
-        <input type="password" id="senha" name="senha"><br><br>
-        <button id="cadastro-submit">Cadastrar</button>
-      </form>
-    </section>
-    <section id="registro-ponto">
-      <h2>Registro de Ponto</h2>
-      <form>
-        <label for="tipo-ponto">Tipo de Ponto:</label>
-        <select id="tipo-ponto" name="tipo-ponto">
-          <option value="entrada">Entrada</option>
-          <option value="saida">Saída</option>
-        </select><br><br>
-        <button id="registro-submit">Registrar Ponto</button>
-      </form>
-    </section>
-    <section id="relatorios">
-      <h2>Relatórios de Ponto</h2>
-      <table id="relatorios-table">
-        <thead>
-          <tr>
-            <th>Data</th>
-            <th>Tipo de Ponto</th>
-          </tr>
-        </thead>
-        <tbody id="relatorios-tbody">
-          <!-- dados serão carregados aqui -->
-        </tbody>
-      </table>
-      <button id="enviar-relatorio-email">Enviar Relatório por E-mail</button>
-      <button id="enviar-relatorio-whatsapp">Enviar Relatório por WhatsApp</button>
-    </section>
-  </main>
-  <script src="script.js"></script>
+    <div class="container">
+        <h1>RC Andaimes - Folha de Ponto</h1>
+        <table id="folhaPonto">
+            <tr>
+                <th>Nome do Funcionário</th>
+                <th>Função</th>
+                <th>Data</th>
+                <th>Entrada Manhã</th>
+                <th>Saída Manhã</th>
+                <th>Entrada Tarde</th>
+                <th>Saída Tarde</th>
+                <th>Observação</th>
+            </tr>
+            <tr>
+                <td><input type="text" id="nome"></td>
+                <td><input type="text" id="funcao"></td>
+                <td><input type="date" id="data"></td>
+                <td><input type="time" id="entradaManha"></td>
+                <td><input type="time" id="saidaManha"></td>
+                <td><input type="time" id="entradaTarde"></td>
+                <td><input type="time" id="saidaTarde"></td>
+                <td><input type="text" id="observacao" placeholder="Folga, Falta ou Período de Ausência"></td>
+            </tr>
+        </table>
+        <button onclick="adicionarLinha()">Adicionar Nova Linha</button>
+        <button onclick="gerarRelatorio()">Gerar PDF</button>
+        <button onclick="enviarWhatsApp()">Enviar via WhatsApp</button>
+    </div>
+
+    <script>
+        function adicionarLinha() {
+            var table = document.getElementById("folhaPonto");
+            var row = table.insertRow(-1);
+            var cells = [];
+            for (var i = 0; i < 8; i++) {
+                cells[i] = row.insertCell(i);
+                var input = document.createElement("input");
+                input.type = i === 2 ? "date" : (i === 3 || i === 4 || i === 5 || i === 6 ? "time" : "text");
+                if (i === 7) {
+                    input.placeholder = "Folga, Falta ou Período de Ausência";
+                }
+                cells[i].appendChild(input);
+            }
+        }
+
+        function gerarRelatorio() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            doc.setFontSize(18);
+            doc.text("RC Andaimes - Folha de Ponto", 105, 15, null, null, "center");
+            
+            doc.setFontSize(12);
+            doc.setTextColor(100);
+
+            var table = document.getElementById("folhaPonto");
+            var y = 30;
+            
+            for (var i = 0; i < table.rows.length; i++) {
+                var row = table.rows[i];
+                var line = "";
+                for (var j = 0; j < row.cells.length; j++) {
+                    if (i === 0) {
+                        line += row.cells[j].innerText + " | ";
+                    } else {
+                        line += row.cells[j].getElementsByTagName("input")[0].value + " | ";
+                    }
+                }
+                doc.text(line, 10, y);
+                y += 10;
+                
+                if (y >= 280) {
+                    doc.addPage();
+                    y = 20;
+                }
+            }
+            
+            doc.save("RC_Andaimes_Folha_de_Ponto.pdf");
+        }
+
+        function enviarWhatsApp() {
+            var table = document.getElementById("folhaPonto");
+            var message = "RC Andaimes - Folha de Ponto\n\n";
+            
+            for (var i = 0; i < table.rows.length; i++) {
+                var row = table.rows[i];
+                var line = "";
+                for (var j = 0; j < row.cells.length; j++) {
+                    if (i === 0) {
+                        line += row.cells[j].innerText + " | ";
+                    } else {
+                        line += row.cells[j].getElementsByTagName("input")[0].value + " | ";
+                    }
+                }
+                message += line + "\n";
+            }
+            
+            var encodedMessage = encodeURIComponent(message);
+            window.open(`https://wa.me/?text=${encodedMessage}`, '_blank');
+        }
+    </script>
 </body>
 </html>
-
-
-    
-
-     
+  
