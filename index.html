@@ -18,81 +18,66 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            max-width: 100%;
-            overflow-x: auto;
+            max-width: 1200px;
+            margin: 0 auto;
         }
         h1 {
             color: #0066cc;
             text-align: center;
-            font-size: 1.5em;
+            font-size: 1.8em;
+            margin-bottom: 30px;
         }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
+        .form-row {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 20px;
+            gap: 20px;
         }
-        th, td {
-            border: 1px solid #0066cc;
-            padding: 10px;
-            text-align: left;
+        .form-group {
+            flex: 1;
+            min-width: 200px;
         }
-        th {
-            background-color: #0066cc;
-            color: white;
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #0066cc;
+            font-weight: bold;
         }
         input[type="text"], input[type="date"], input[type="time"] {
             width: 100%;
-            padding: 5px;
+            padding: 10px;
             border: 1px solid #ccc;
-            border-radius: 3px;
-            font-size: 0.9em;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
         }
         button {
             background-color: #0066cc;
             color: white;
             border: none;
-            padding: 10px 20px;
+            padding: 12px 24px;
             border-radius: 5px;
             cursor: pointer;
-            margin-top: 20px;
-            margin-right: 10px;
-            font-size: 0.9em;
+            font-size: 1em;
+            transition: background-color 0.3s;
         }
         button:hover {
             background-color: #004c99;
         }
         @media screen and (max-width: 768px) {
-            body {
-                padding: 10px;
+            .form-group {
+                flex-basis: 100%;
             }
-            .container {
-                padding: 10px;
-            }
-            h1 {
-                font-size: 1.2em;
-            }
-            table {
-                font-size: 0.8em;
-            }
-            th, td {
-                padding: 5px;
-            }
-            input[type="text"], input[type="date"], input[type="time"] {
-                font-size: 0.8em;
+            .buttons {
+                flex-direction: column;
+                gap: 10px;
             }
             button {
-                padding: 8px 16px;
-                font-size: 0.8em;
-                margin-top: 10px;
-                margin-right: 5px;
-            }
-        }
-        @media screen and (max-width: 480px) {
-            .responsive-table {
-                overflow-x: auto;
-            }
-            table {
-                min-width: 600px;
+                width: 100%;
             }
         }
     </style>
@@ -100,48 +85,64 @@
 <body>
     <div class="container">
         <h1>RC Andaimes - Folha de Ponto</h1>
-        <div class="responsive-table">
-            <table id="folhaPonto">
-                <tr>
-                    <th>Nome do Funcionário</th>
-                    <th>Função</th>
-                    <th>Data</th>
-                    <th>Entrada Manhã</th>
-                    <th>Saída Manhã</th>
-                    <th>Entrada Tarde</th>
-                    <th>Saída Tarde</th>
-                    <th>Observação</th>
-                </tr>
-                <tr>
-                    <td><input type="text" id="nome"></td>
-                    <td><input type="text" id="funcao"></td>
-                    <td><input type="date" id="data"></td>
-                    <td><input type="time" id="entradaManha"></td>
-                    <td><input type="time" id="saidaManha"></td>
-                    <td><input type="time" id="entradaTarde"></td>
-                    <td><input type="time" id="saidaTarde"></td>
-                    <td><input type="text" id="observacao" placeholder="Folga, Falta ou Período de Ausência"></td>
-                </tr>
-            </table>
+        <form id="folhaPonto">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="nome">Nome do Funcionário</label>
+                    <input type="text" id="nome" name="nome">
+                </div>
+                <div class="form-group">
+                    <label for="funcao">Função</label>
+                    <input type="text" id="funcao" name="funcao">
+                </div>
+                <div class="form-group">
+                    <label for="data">Data</label>
+                    <input type="date" id="data" name="data">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="entradaManha">Entrada Manhã</label>
+                    <input type="time" id="entradaManha" name="entradaManha">
+                </div>
+                <div class="form-group">
+                    <label for="saidaManha">Saída Manhã</label>
+                    <input type="time" id="saidaManha" name="saidaManha">
+                </div>
+                <div class="form-group">
+                    <label for="entradaTarde">Entrada Tarde</label>
+                    <input type="time" id="entradaTarde" name="entradaTarde">
+                </div>
+                <div class="form-group">
+                    <label for="saidaTarde">Saída Tarde</label>
+                    <input type="time" id="saidaTarde" name="saidaTarde">
+                </div>
+            </div>
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="observacao">Observação</label>
+                    <input type="text" id="observacao" name="observacao" placeholder="Folga, Falta ou Período de Ausência">
+                </div>
+            </div>
+        </form>
+        <div class="buttons">
+            <button onclick="adicionarLinha()">Adicionar Nova Linha</button>
+            <button onclick="gerarRelatorio()">Gerar PDF</button>
+            <button onclick="enviarWhatsApp()">Enviar via WhatsApp</button>
         </div>
-        <button onclick="adicionarLinha()">Adicionar Nova Linha</button>
-        <button onclick="gerarRelatorio()">Gerar PDF</button>
-        <button onclick="enviarWhatsApp()">Enviar via WhatsApp</button>
     </div>
 
     <script>
         function adicionarLinha() {
-            var table = document.getElementById("folhaPonto");
-            var row = table.insertRow(-1);
-            var cells = [];
-            for (var i = 0; i < 8; i++) {
-                cells[i] = row.insertCell(i);
-                var input = document.createElement("input");
-                input.type = i === 2 ? "date" : (i === 3 || i === 4 || i === 5 || i === 6 ? "time" : "text");
-                if (i === 7) {
-                    input.placeholder = "Folga, Falta ou Período de Ausência";
-                }
-                cells[i].appendChild(input);
+            var form = document.getElementById("folhaPonto");
+            var newForm = form.cloneNode(true);
+            newForm.id = "folhaPonto" + (document.getElementsByTagName("form").length + 1);
+            form.parentNode.insertBefore(newForm, document.querySelector(".buttons"));
+            
+            // Limpar os campos do novo formulário
+            var inputs = newForm.getElementsByTagName("input");
+            for (var i = 0; i < inputs.length; i++) {
+                inputs[i].value = "";
             }
         }
 
@@ -155,20 +156,23 @@
             doc.setFontSize(12);
             doc.setTextColor(100);
 
-            var table = document.getElementById("folhaPonto");
+            var forms = document.getElementsByTagName("form");
             var y = 30;
             
-            for (var i = 0; i < table.rows.length; i++) {
-                var row = table.rows[i];
-                var line = "";
-                for (var j = 0; j < row.cells.length; j++) {
-                    if (i === 0) {
-                        line += row.cells[j].innerText + " | ";
-                    } else {
-                        line += row.cells[j].getElementsByTagName("input")[0].value + " | ";
-                    }
+            for (var i = 0; i < forms.length; i++) {
+                var form = forms[i];
+                var inputs = form.getElementsByTagName("input");
+                
+                doc.text(`Registro ${i + 1}:`, 10, y);
+                y += 10;
+                
+                for (var j = 0; j < inputs.length; j++) {
+                    var label = inputs[j].previousElementSibling.textContent;
+                    var value = inputs[j].value;
+                    doc.text(`${label}: ${value}`, 20, y);
+                    y += 7;
                 }
-                doc.text(line, 10, y);
+                
                 y += 10;
                 
                 if (y >= 280) {
@@ -181,20 +185,22 @@
         }
 
         function enviarWhatsApp() {
-            var table = document.getElementById("folhaPonto");
+            var forms = document.getElementsByTagName("form");
             var message = "RC Andaimes - Folha de Ponto\n\n";
             
-            for (var i = 0; i < table.rows.length; i++) {
-                var row = table.rows[i];
-                var line = "";
-                for (var j = 0; j < row.cells.length; j++) {
-                    if (i === 0) {
-                        line += row.cells[j].innerText + " | ";
-                    } else {
-                        line += row.cells[j].getElementsByTagName("input")[0].value + " | ";
-                    }
+            for (var i = 0; i < forms.length; i++) {
+                var form = forms[i];
+                var inputs = form.getElementsByTagName("input");
+                
+                message += `Registro ${i + 1}:\n`;
+                
+                for (var j = 0; j < inputs.length; j++) {
+                    var label = inputs[j].previousElementSibling.textContent;
+                    var value = inputs[j].value;
+                    message += `${label}: ${value}\n`;
                 }
-                message += line + "\n";
+                
+                message += "\n";
             }
             
             var encodedMessage = encodeURIComponent(message);
